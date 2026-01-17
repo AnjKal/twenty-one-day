@@ -27,8 +27,17 @@ export default function Home() {
       return;
     }
 
+    // Generate a unique ID with fallback for environments without crypto.randomUUID()
+    const generateId = () => {
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID();
+      }
+      // Fallback: timestamp + random number
+      return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    };
+
     const challenge: Challenge = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       name: newChallenge.name,
       description: newChallenge.description,
       days: newChallenge.days,
