@@ -14,6 +14,7 @@ interface Challenge {
 export default function Home() {
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [isCreating, setIsCreating] = useState(false);
+  const [formError, setFormError] = useState('');
   const [newChallenge, setNewChallenge] = useState({
     name: '',
     description: '',
@@ -22,12 +23,12 @@ export default function Home() {
 
   const handleCreateChallenge = () => {
     if (newChallenge.name.trim() === '') {
-      alert('Please enter a challenge name');
+      setFormError('Please enter a challenge name');
       return;
     }
 
     const challenge: Challenge = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       name: newChallenge.name,
       description: newChallenge.description,
       days: newChallenge.days,
@@ -36,6 +37,7 @@ export default function Home() {
 
     setChallenges([...challenges, challenge]);
     setNewChallenge({ name: '', description: '', days: 21 });
+    setFormError('');
     setIsCreating(false);
   };
 
@@ -75,6 +77,7 @@ export default function Home() {
           <div className={styles.modal}>
             <div className={styles.modalContent}>
               <h2 className={styles.modalTitle}>Create New Challenge</h2>
+              {formError && <div className={styles.errorMessage}>{formError}</div>}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -90,9 +93,10 @@ export default function Home() {
                     id="name"
                     className={styles.input}
                     value={newChallenge.name}
-                    onChange={(e) =>
-                      setNewChallenge({ ...newChallenge, name: e.target.value })
-                    }
+                    onChange={(e) => {
+                      setNewChallenge({ ...newChallenge, name: e.target.value });
+                      setFormError('');
+                    }}
                     placeholder="e.g., Daily Exercise"
                     autoFocus
                   />

@@ -95,6 +95,16 @@
   text-align: center;
 }
 
+.errorMessage {
+  background: #ffebee;
+  color: #c62828;
+  padding: 0.75rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #c62828;
+  font-weight: 500;
+}
+
 .formGroup {
   margin-bottom: 1.5rem;
 }
