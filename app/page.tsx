@@ -33,7 +33,7 @@ export default function Home() {
         return crypto.randomUUID();
       }
       // Fallback: timestamp + random number
-      return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      return `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
     };
 
     const challenge: Challenge = {
