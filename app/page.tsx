@@ -139,7 +139,7 @@ export default function Home() {
                     max="30"
                     value={newChallenge.days}
                     onChange={(e) =>
-                      setNewChallenge({ ...newChallenge, days: parseInt(e.target.value) })
+                      setNewChallenge({ ...newChallenge, days: parseInt(e.target.value, 10) })
                     }
                   />
                   <div className={styles.dayPreview}>
